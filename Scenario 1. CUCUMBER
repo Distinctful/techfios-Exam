@@ -1,0 +1,42 @@
+// Step Definitions 
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import static org.junit.Assert.assertEquals;
+
+public class BackgroundColorStepDefinitions {
+    private WebDriver driver;
+    private WebElement backgroundStyleElement;
+
+    @Given("I am on the homepage")
+    public void navigateToHomePage() {
+        System.setProperty("webdriver.chrome.driver", "C:\Users\Zeeshan\Desktop\Silenium");
+        driver = new ChromeDriver();
+        driver.get("https://techfios.com/test/101/index.php");
+        backgroundStyleElement = driver.findElement(By.xpath("//body"));
+    }
+
+    @When("I click on the {string} button")
+    public void clickOnButton(String buttonName) {
+        WebElement button = driver.findElement(By.xpath("//button[contains(text(),'" + buttonName + "')]"));
+        button.click();
+    }
+
+    @Then("the background color should change to {string}")
+    public void verifyBackgroundColor(String color) {
+        String backgroundStyleValue = backgroundStyleElement.getAttribute("style");
+        String expectedBackgroundStyleValue = "background-color: " + color + ";";
+        assertEquals(expectedBackgroundStyleValue, backgroundStyleValue);
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+}
+
