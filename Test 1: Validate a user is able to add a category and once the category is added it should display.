@@ -1,0 +1,50 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class CategoryManagerTest {
+    private WebDriver driver;
+    private static final String BASE_URL = "https://techfios.com/test/101/";
+
+    @BeforeClass
+    public void setUp() {
+        // Set up ChromeDriver path
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sean\\Desktop\\Selenium\\chromedriver.exe");
+
+        // Create a new ChromeDriver instance
+        driver = new ChromeDriver();
+    }
+
+    @Test
+    public void testAddCategoryAndDisplay() {
+        // Navigate to the category management page
+        driver.get(BASE_URL);
+
+        // Add a category
+        String categoryName = "Test Category";
+        String categoryDescription = "This is a test category.";
+
+        WebElement categoryField = driver.findElement(By.xpath("//input[@name='categorydata']"));
+        WebElement addCategoryButton = driver.findElement(By.xpath("//input[@value='Add']"));
+
+        categoryField.sendKeys(categoryName);
+        addCategoryButton.click();
+
+        // Wait for the category to be added and displayed
+        WebElement addedCategory = driver.findElement(By.xpath("//li[text()='" + categoryName + "']"));
+
+        // Validate the added category is displayed correctly
+        Assert.assertEquals(addedCategory.getText(), categoryName, "Category name should match the added category");
+    }
+
+    @AfterClass
+    public void tearDown() {
+        // Close the browser
+        driver.quit();
+    }
+}
