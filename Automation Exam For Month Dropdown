@@ -17,7 +17,7 @@ public class MonthDropdownValidation {
     @BeforeMethod
     public void setup() {
         // Set the path to the chromedriver executable
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sean\\Desktop\\Selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Zeeshan\\Desktop\\Selenium\\chromedriver.exe");
 
         // Create a new instance of the Chrome driver
         driver = new ChromeDriver();
@@ -25,16 +25,16 @@ public class MonthDropdownValidation {
 
     @Test
     public void validateMonthDropdownOptions() {
-        // Navigate to the webpage containing the dropdown
+        // Navigating to the webpage containing the dropdown(s)
         driver.get("https://techfios.com/test/101/index.php");
 
-        // Find the dropdown element
+        // Find/Defining the dropdown element
         WebElement dropdown = driver.findElement(By.id("due-date-dropdown"));
 
-        // Click on the dropdown to open the options
+        // Click on dropdown to open the options
         dropdown.click();
 
-        // Get all the options from the dropdown
+        // Get all toptions from dropdown
         List<WebElement> options = driver.findElements(By.xpath("//select[@id='due-date-dropdown']/option"));
 
         // Extract the text from each option and store it in a list
@@ -43,19 +43,19 @@ public class MonthDropdownValidation {
             monthOptions.add(option.getText());
         }
 
-        // Define the expected list of months
+        // Define list of months
         List<String> expectedMonths = Arrays.asList(
                 "January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
         );
 
-        // Validate if the actual list of months matches the expected list
+        // Validate if the list of months matches the expected list
         Assert.assertEquals(monthOptions, expectedMonths, "Months are missing from the dropdown.");
     }
 
     @AfterMethod
     public void tearDown() {
-        // Close the browser
+        // Will Close the browser
         driver.quit();
     }
 }
