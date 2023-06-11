@@ -14,7 +14,7 @@ public class CategoryManagerTest {
     @BeforeClass
     public void setUp() {
         // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Sean\\Desktop\\Selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Zeeshan\\Desktop\\Selenium\\chromedriver.exe");
 
         // Create a new ChromeDriver instance
         driver = new ChromeDriver();
