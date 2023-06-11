@@ -1,0 +1,46 @@
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import static org.junit.Assert.assertEquals;
+
+public class ToggleAllCheckboxTest {
+
+    private WebDriver driver;
+
+    @Before
+    public void setUp() {
+        // Set up ChromeDriver
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Zeeshan\\Desktop\\Selenium\\chromedriver.exe");
+        driver = new ChromeDriver();
+    }
+
+    @Test
+    public void testToggleAllCheckbox() {
+        // Navigate to the website
+        driver.get("https://techfios.com/test/101/index.php");
+
+        // Find the toggle all checkbox and click on it to check it
+        WebElement toggleAllCheckbox = driver.findElement(By.name("allbox"));
+        toggleAllCheckbox.click();
+
+        // Find all checkboxes for list items
+        // Note: Adjust the locator according to the structure of the list items on the website
+        List<WebElement> listCheckboxes = driver.findElements(By.cssSelector("input[name='todo[0]']"));
+
+        // Validate that all checkboxes are checked
+        for (WebElement checkbox : listCheckboxes) {
+            assertEquals(true, checkbox.isSelected());
+        }
+    }
+
+    @After
+    public void tearDown() {
+        // Close the browser
+        driver.quit();
+    }
+}
